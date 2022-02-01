@@ -1,17 +1,23 @@
 const {Student, Course} = require('../models')
 
 //view all
-module.exports.viewAll = async fucntion(req,res){
+module.exports.viewAll = async function(req,res){
     const students = await Student.findAll();
     res.render('students/view_all', {students});
 }
 
 //profile
-module.exports.viewProfile = async function(req,res){
+module.exports.viewProfile = async function(req,res) {
     const student = await Student.findByPk(req.params.id, {
         include: 'courses'
     });
-    res.render('student/profile', {student})
+    const courses = await Course.findAll();
+    let availableCourse = [];
+    for (let i = 0; i, courses.length; i++) {
+        availableCourses.push(course[i]);
+        }
+    }
+    res.render('student/profile', {student, availableCourses});
 }
 
 //render add
@@ -65,4 +71,35 @@ module.exports.deleteStudent = async function(req,res){
         }
     });
     res.redirect('/students');
+}
+
+//Add Course to Student
+module.exports.enrollStudent = async function(req,res){
+    await StudentCourses.create({
+        student_id: req.params.studentId,
+        course_id: req.body.course
+    })
+    res.redirect(`/students/profile/${req.params.studentId}`);
+}
+
+//Delete Course From Students
+module.exports.removeCourse = async function(req,res){
+    await StudentCourses.destroy({
+        where: {
+            student_id: req.params.studentId,
+            course_id: req.params.courseId
+        }
+    });
+    res.redirect(`/students/profile/${req.params.studentId}`)
+}
+
+//functions
+
+function studentHasCourse(student, course){
+    for(let i=0; i<student.courses.length; i++){
+        if(course.id === student.courses.length; i++){
+            return true
+        }
+    }
+    return false
 }
