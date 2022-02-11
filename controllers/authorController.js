@@ -4,7 +4,7 @@ const departments = ['Math','English','Music','Art','PE','World Languages','Soci
 //view all
 module.exports.viewAll = async function(req, res){
     const courses = Course.findAll();
-    res.render('course/view_all', {courses});
+    res.render('book/view_all', {courses});
 }
 
 //profile
@@ -18,7 +18,7 @@ module.exports.viewProfile = async function(req,res){
         availablStudents.push(course[i]);
     }
 }
-res.render('course/profile', {course, availableStudents})
+res.render('book/profile', {course, availableStudents})
 }
 
 //render add form
@@ -29,7 +29,7 @@ module.exports.renderAddForm = function(req,res){
         instructor_name: '',
         description:''
     }
-    res.render('course/add', {course, departments});
+    res.render('book/add', {course, departments});
 }
 
 //add
@@ -38,7 +38,7 @@ module.exports.renderAddForm = function(req,res){
 //render edit form
 module.exports.renderEditForm = async function(req,res){
     const course = await Course.findByPk(req.params.id);
-    res.render('course/edit', {course, departments});
+    res.render('book/edit', {course, departments});
 }
 
 //update

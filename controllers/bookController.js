@@ -17,7 +17,7 @@ module.exports.viewProfile = async function(req,res) {
         availableCourses.push(course[i]);
         }
     }
-    res.render('student/profile', {student, availableCourses});
+    res.render('author/profile', {student, availableCourses});
 }
 
 //render add
@@ -43,7 +43,7 @@ module.exports.addStudents = async function(req,res){
 //render edit
 module.exports.renderEditForm = async function(req,res){
     const students = await Student.findByPk(req.params.id);
-    res.render('student/edit', {student});
+    res.render('author/edit', {student});
 }
 
 //update
