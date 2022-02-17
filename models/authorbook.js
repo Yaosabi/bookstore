@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  StudentCourses.init({
-    student_id: {
+  BookCourses.init({
+    author_id: {
       type: DataTypes.INTEGER,
       primaryKey: true
     },
-    course_id: {
+    book_id: {
       type: DataTypes.INTEGER,
       primaryKey: true
     }

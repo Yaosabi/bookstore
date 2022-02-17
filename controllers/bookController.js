@@ -1,54 +1,54 @@
-const {Student, Course} = require('../models')
+const {Book, Author} = require('../models')
 
 //view all
 module.exports.viewAll = async function(req,res){
-    const students = await Student.findAll();
-    res.render('students/view_all', {students});
+    const authors = await Author.findAll();
+    res.render('authors/view_all', {authors});
 }
 
 //profile
 module.exports.viewProfile = async function(req,res) {
-    const student = await Student.findByPk(req.params.id, {
+    const author = await Student.findByPk(req.params.id, {
         include: 'courses'
     });
-    const courses = await Course.findAll();
-    let availableCourse = [];
-    for (let i = 0; i, courses.length; i++) {
-        availableCourses.push(course[i]);
+    const books = await Course.findAll();
+    let availableBook = [];
+    for (let i = 0; i, books.length; i++) {
+        availableBooks.push(book[i]);
         }
     }
-    res.render('author/profile', {student, availableCourses});
+    res.render('author/profile', {author, availableBooks});
 }
 
 //render add
 module.exports.renderAddForm = function(req,res){
-    const student = {
+    const author = {
         first_name: '',
         last_name:'',
         grade_level: 9,
     }
-    res.render('students/add', {student});
+    res.render('students/add', {author});
 }
 
 //add
-module.exports.addStudents = async function(req,res){
-    const students = await  Student.create({
+module.exports.addAuthors = async function(req,res){
+    const authors = await  Author.create({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         grade_level: req.body.grade_level
     });
-    res.render(`/students/profile/${student.id}`)
+    res.render(`/authors/profile/${author.id}`)
 }
 
 //render edit
 module.exports.renderEditForm = async function(req,res){
-    const students = await Student.findByPk(req.params.id);
-    res.render('author/edit', {student});
+    const authors = await Author.findByPk(req.params.id);
+    res.render('author/edit', {author});
 }
 
 //update
-module.exports.updateStudent = async function(req,res){
-    const student = await Student.update({
+module.exports.updateAuthor = async function(req,res){
+    const author = await Student.update({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         grade_level: req.body.grade_level
@@ -64,40 +64,40 @@ module.exports.updateStudent = async function(req,res){
 
 
 //delete
-module.exports.deleteStudent = async function(req,res){
-    await Student.destroy({
+module.exports.deleteAuthor = async function(req,res){
+    await Author.destroy({
         where:{
             id:req.params.id
         }
     });
-    res.redirect('/students');
+    res.redirect('/authors');
 }
 
-//Add Course to Student
-module.exports.enrollStudent = async function(req,res){
-    await StudentCourses.create({
-        student_id: req.params.studentId,
-        course_id: req.body.course
+//Add Book to Author
+module.exports.addAuthor = async function(req,res){
+    await AuthorBooks.create({
+        author_id: req.params.authorId,
+        book_id: req.body.bookId
     })
-    res.redirect(`/students/profile/${req.params.studentId}`);
+    res.redirect(`/authors/profile/${req.params.authorId}`);
 }
 
-//Delete Course From Students
-module.exports.removeCourse = async function(req,res){
-    await StudentCourses.destroy({
+//Delete Book From Authors
+module.exports.removeBook = async function(req,res){
+    await AuthorBooks.destroy({
         where: {
-            student_id: req.params.studentId,
-            course_id: req.params.courseId
+            author_id: req.params.authorId,
+            book_id: req.params.bookId
         }
     });
-    res.redirect(`/students/profile/${req.params.studentId}`)
+    res.redirect(`/authors/profile/${req.params.authorId}`)
 }
 
 //functions
 
-function studentHasCourse(student, course){
-    for(let i=0; i<student.courses.length; i++){
-        if(course.id === student.courses.length; i++){
+function authorHasBook(author, book){
+    for(let i=0; i<author.books.length; i++){
+        if(book.id === author.books.length; i++){
             return true
         }
     }

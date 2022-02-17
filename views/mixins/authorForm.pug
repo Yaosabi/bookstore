@@ -1,20 +1,19 @@
-mixin studentForm(student, saveUrl, cancelUrl)
+mixin authorForm(author, saveUrl, cancelUrl)
 
     div.form-container
         form(action=saveUrl method='post')
             div.form-input
                 label(for='first_name') First Name
-                input(id='first)name' name='first_name' value=student.first_name)
+                input(id='first)name' name='first_name' value=author.firstname)
 
             div.form-input
                 label(for='last_name') Last Name
-                input(id='last_name' name='last_name' value=student.last_name)
+                input(id='last_name' name='last_name' value=author.lastname)
 
             div.form-input
-                label(for='grade') Grade
-                select(id='grade' name='grade')
-                    each grade in [9, 10, 11, 12]
-                        option(value=grade selected = (grade === student.grade_level)) #{grade}
+                label(for='dob') Date Of Birth
+                select(id='dob' name='dob')
+                    each dob in [90,91,92,93,94,95,96,97,98,99,00]
 
             div.form-buttons
                 a.button(href=cancelUrl) Cancel

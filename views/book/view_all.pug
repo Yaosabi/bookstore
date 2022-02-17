@@ -1,20 +1,26 @@
 extends ../layout
 
 block content
-    h3 courses
-    a(href='/courses/add') Add New Course
+    h3 books
+    a(href='/books/add') Add New Book
     table
         thead
             tr
-                th Course Title
-                th Instructor
-                th Department
+                th Title
+                th Author
+                th Publisher
+                th Genre
+                th Number of Pages
+                th Image
                 th
         tbody
-            each course in courses
+            each book in books
                 tr
-                    td= course.name
-                    td= course.instructor_name
-                    td= course.department
+                    td= book.title
+                    td= book.author
+                    td= book.publisher
+                    td= book.genre
+                    td= book.pages
+                    td= book.image
                     td
-                        a(href=`/courses/profile/${course.id}`) View Course
+                        a(href=`/books/profile/${book.id}`) View Book

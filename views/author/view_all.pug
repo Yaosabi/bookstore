@@ -1,20 +1,20 @@
 extends ../layout
 
 block content
-    h3 Students
-    a(href='/author/add') Add New Student
+    h3 Authors
+    a(href='/author/add') Add New Author
     table
         thead
             tr
                 th First
                 th Last
-                th Grade
+                th DOB
                 th
         tbody
-            each student in students
+            each author in authors
                 tr
-                    td= student.first_name
-                    td= student.last_name
-                    td= student.grade_level
+                    td= author.firstname
+                    td= author.lastname
+                    td= author.dob
                     td
-                        a(href=`/students/profile/${student.id}`) View Student
+                        a(href=`/authors/profile/${author.id}`) View Author

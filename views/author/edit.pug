@@ -1,5 +1,5 @@
 extends ../layout
 
 block content
-    include ../mixins/studentsForm
-    +studentForm(student, `/students/edit/${student.id}`, `/students/profile/${student.id}`)
+    include ../mixins/authorForm
+    +studentForm(author, `/authors/edit/${author.id}`, `/authors/profile/${author.id}`)

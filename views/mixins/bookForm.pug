@@ -1,24 +1,24 @@
-mixin courseForm(course, departments, saveUrl, cancelUrl)
+mixin bookForm(book, genres, saveUrl, cancelUrl)
 
     div.form-container
         form(action=saveUrl method='post')
             div.form-input
-                label(for='name') Course Title
-                input(id='name' name='name' value= course.name)
+                label(for='name') Book Title
+                input(id='name' name='name' value= book.title)
 
             div.form-input
-                label(for='instructor_name') Instructor
-                input(id='instructor_name' name='instructor_name' value= course.instructor_name)
+                label(for='author_name') Author
+                input(id='author_name' name='author_name' value= book.authors)
 
             div.form-input
-                label(for='department') Department
+                label(for='department') Genre
                 select(id='department' name='department')
-                    each department in departments
-                        option(value=department selected = (department === course.department)) #{department}
+                    each genre in genres
+                        option(value=genre selected = (genre === book.genre)) #{genre}
 
             div.form-input
-                label(for='department') Course Description
-                textarea(id='description' name='description' rows=10 cols=80) #{course.description}
+                label(for='department') Book Description
+                textarea(id='description' name='description' rows=10 cols=80) #{book.description}
 
             div.form-buttons
                 a.button(href=cancelUrl) Cancel

@@ -1,17 +1,17 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('StudentCourses', {
+    await queryInterface.createTable('AuthorCourses', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      student_id: {
+      author_id: {
         type: Sequelize.INTEGER
       },
-      course_id: {
+      book_id: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -25,6 +25,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('StudentCourses');
+    await queryInterface.dropTable('AuthorCourses');
   }
 };

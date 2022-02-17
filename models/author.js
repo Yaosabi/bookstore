@@ -21,9 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Author.init({
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    grade_level: DataTypes.INTEGER
+    firstname: DataTypes.STRING,
+    lastname: DataTypes.STRING,
+    books: DataTypes.STRING,
+    dob: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Author',

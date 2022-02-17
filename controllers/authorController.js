@@ -1,35 +1,35 @@
-const {Course} = require('../models')
-const departments = ['Math','English','Music','Art','PE','World Languages','Social Studies','Science'].sort();
+const {Book} = require('../models')
+const genres = ['Fiction', 'Nonfiction'].sort();
 
 //view all
 module.exports.viewAll = async function(req, res){
-    const courses = Course.findAll();
-    res.render('book/view_all', {courses});
+    const books = Book.findAll();
+    res.render('book/view_all', {books});
 }
 
 //profile
 module.exports.viewProfile = async function(req,res){
-    const course = await Course.findByPk(req.params.id, {
-        include: 'students'
+    const book = await Book.findByPk(req.params.id, {
+        include: 'authors'
     });
-    const students = await Student.findAll();
-    let availableStudents = [];
-    for (let i = 0; i, courses.length; i++) {
-        availablStudents.push(course[i]);
+    const authors = await Author.findAll();
+    let availableAuthors = [];
+    for (let i = 0; i, books.length; i++) {
+        availableAuthors.push(book[i]);
     }
 }
-res.render('book/profile', {course, availableStudents})
+res.render('book/profile', {books, availableAuthors})
 }
 
 //render add form
 module.exports.renderAddForm = function(req,res){
-    const course = {
+    const book = {
         name:'',
         department: departments[0],
         instructor_name: '',
         description:''
     }
-    res.render('book/add', {course, departments});
+    res.render('book/add', {author, genres});
 }
 
 //add
@@ -37,13 +37,13 @@ module.exports.renderAddForm = function(req,res){
 
 //render edit form
 module.exports.renderEditForm = async function(req,res){
-    const course = await Course.findByPk(req.params.id);
-    res.render('book/edit', {course, departments});
+    const book = await Book.findByPk(req.params.id);
+    res.render('book/edit', {author, genres});
 }
 
 //update
-module.exports.updateCourse = async function(req, res){
-    const course = await Course.update({
+module.exports.updateBook = async function(req, res){
+    const book = await Book.update({
         name: req.body.name,
         department: req.body.department,
         instructor_name: req.body.instructor_name,
@@ -53,43 +53,43 @@ module.exports.updateCourse = async function(req, res){
             id: req.params.id
         }
         });
-    res.redirect(`/courses/profile/${req.params.id}`);
+    res.redirect(`/books/profile/${req.params.id}`);
 }
 
 //delete
-module.exports.deleteCourse = async function(req,res){
-    await Course.destroy({
+module.exports.deleteBook = async function(req,res){
+    await Book.destroy({
         where:{
             id:req.params.id
         }
         });
-    res.redirect('/courses');
+    res.redirect('/books');
 }
 
-//Add Student to Course
-module.exports.enrollStudent = async function(req,res){
-    await StudentCourses.create({
-        student_id: req.params.studentId,
-        course_id: req.body.courseId
+//Add Author to Book
+module.exports.enrollAuthor = async function(req,res){
+    await AuthorBooks.create({
+        author_id: req.params.authorId,
+        book_id: req.body.bookId
     })
-    res.redirect(`/courses/profile/${req.params.courseId}`);
+    res.redirect(`/books/profile/${req.params.bookId}`);
 }
 
-//Delete Student from Course
-module.exports.removeStudent = async function(req,res){
-    await StudentCourses.destroy({
+//Delete Author from Book
+module.exports.removeAuthor = async function(req,res){
+    await AuthorBooks.destroy({
         where: {
-            course_id: req.params.courseId,
-            student_id: req.params.studentId
+            book_id: req.params.bookId,
+            author_id: req.params.authorId
         }
     });
-    res.redirect(`/courses/profile/${req.params.courseId}`)
+    res.redirect(`/books/profile/${req.params.bookId}`)
 }
 
 //Functions
-function courseHasStudent(course, student){
-    for(let i=0; i<course.students.length; i++) {
-        if (student.id === course.students[i]) {
+function bookHasAuthor(book, author){
+    for(let i=0; i<book.authors.length; i++) {
+        if (author.id === book.authors[i]) {
             return true
         }
     }
