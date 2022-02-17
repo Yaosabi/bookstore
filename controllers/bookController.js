@@ -8,8 +8,8 @@ module.exports.viewAll = async function(req,res){
 
 //profile
 module.exports.viewProfile = async function(req,res) {
-    const author = await Student.findByPk(req.params.id, {
-        include: 'courses'
+    const author = await Author.findByPk(req.params.id, {
+        include: 'books'
     });
     const books = await Course.findAll();
     let availableBook = [];
@@ -23,19 +23,21 @@ module.exports.viewProfile = async function(req,res) {
 //render add
 module.exports.renderAddForm = function(req,res){
     const author = {
-        first_name: '',
-        last_name:'',
-        grade_level: 9,
+        firstname: '',
+        lastname:'',
+        books: '',
+        dob: [0],
     }
-    res.render('students/add', {author});
+    res.render('authors/add', {author});
 }
 
 //add
 module.exports.addAuthors = async function(req,res){
     const authors = await  Author.create({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        grade_level: req.body.grade_level
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        books: req.body.books,
+        dob: req.body.dob
     });
     res.render(`/authors/profile/${author.id}`)
 }
@@ -48,16 +50,17 @@ module.exports.renderEditForm = async function(req,res){
 
 //update
 module.exports.updateAuthor = async function(req,res){
-    const author = await Student.update({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        grade_level: req.body.grade_level
+    const author = await Author.update({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        books: req.body.books,
+        dob: req.body.dob
     }, {
         where: {
             id: req.params.id
         }
     });
-    res.redirect(`/students/profile/${req.params.id}`);
+    res.redirect(`/authors/profile/${req.params.id}`);
 }
 
 //edit

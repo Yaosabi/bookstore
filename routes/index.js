@@ -23,6 +23,7 @@ router.get('/authors', authorController.viewAll);
 router.get('/authors/profile/:id', authorController.viewProfile);
 router.get('/authors/edit/:id', authorController.renderEditForm);
 router.get('/authors/add', authorController.renderAddForm);
+router.get('authors/:bookId/enroll/' authorController.enrollAuthor);
 router.get('/authors/delete/:id', authorController.deleteBook);
 router.get('/authors/:authorId/removeBook/:bookId', authorController.removeAuthor);
 module.exports = router;

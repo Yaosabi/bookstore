@@ -24,9 +24,12 @@ res.render('book/profile', {books, availableAuthors})
 //render add form
 module.exports.renderAddForm = function(req,res){
     const book = {
-        name:'',
-        department: departments[0],
-        instructor_name: '',
+        title:'',
+        pages: '',
+        publisher: '',
+        image: '',
+        genre: genres[0],
+        authors: '',
         description:''
     }
     res.render('book/add', {author, genres});
@@ -44,9 +47,12 @@ module.exports.renderEditForm = async function(req,res){
 //update
 module.exports.updateBook = async function(req, res){
     const book = await Book.update({
-        name: req.body.name,
-        department: req.body.department,
-        instructor_name: req.body.instructor_name,
+        title: req.body.title,
+        pages: req.body.pages,
+        publisher: req.body.publisher,
+        image: req.body.image,
+        genre: req.body.genre,
+        authors: req.body.authors,
         description: req.body.description
         }, {
         where: {
